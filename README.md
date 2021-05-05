@@ -57,16 +57,16 @@ For this build, I have followed a test-driven development technique.
 
 ### FEATURE 4: USE THE APP WHEN OFFLINE
 #### Scenario 1: Show cached data when there’s no internet connection.
-**Given** user has no internet connection to their phone. 
-**When** the user opens the app by clicking the app’s shortcut.
-**Then** the app will open, but only display the user’s cached data, showing an alert that informs the user that they are offline. 
+- **Given** user has no internet connection to their phone. 
+- **When** the user opens the app by clicking the app’s shortcut.
+- **Then** the app will open, but only display the user’s cached data, showing an alert that informs the user that they are offline. 
 #### Scenario 2: Show error when user changes the settings (city, time range).
-**Given** the user is offline and has opened the app. 
-**When** the user attempts to change the settings.
-**Then** the user will see an error alert, telling them that they have to be online to do this. 
+- **Given** the user is offline and has opened the app. 
+- **When** the user attempts to change the settings.
+- **Then** the user will see an error alert, telling them that they have to be online to do this. 
 
 ### FEATURE 5: DATA VISUALIZATION
 #### Scenario 1: Show a chart with the number of upcoming events in each city.
-**Given** the app is open, the user has selected a city from the list, and the city’s list of events is rendered . 
-**When** the user clicks “show event chart”.
-**Then** a chart view will be rendered that shows the percentages of different event types for that city. 
+- **Given** the app is open, the user has selected a city from the list, and the city’s list of events is rendered . 
+- **When** the user clicks “show event chart”.
+- **Then** a chart view will be rendered that shows the percentages of different event types for that city. 
