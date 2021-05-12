@@ -59,3 +59,37 @@ module.exports.getAuthURL = async () => {
     }),
   };
 };
+
+// function that gets access token
+module.exports.getAccessToken = async (event) => {
+  //create new OAuthClient bc serverless has no memory
+  const oAuth2Client = new google.auth.OAuth2(
+    client_id,
+    client_secret,
+    redirect_uris[0]
+  );
+  // Decode authorization code extracted from the URL query
+  const code = decodeURIComponent(`${event.pathParameters.code}`);
+
+  return new Promise((resolve, reject) => {
+    //Exchange authorization code for access token with a “callback” after the exchange. The callback in this case is an arrow function with the results as parameters: “err” and “token.”
+    oAuth2Client.getToken(code, (err, token) => {
+      if(err) {
+        return reject(err);
+      }
+      return resolve(token);
+    });
+  }).then((token) => {
+    //respond with OAuth token
+    return {
+      statusCode: 200,
+      body: JSON.stringify(token),
+    };
+  }).catch((err) => {
+    console.log(err);
+    return{
+      statusCode: 500,
+      body: JSON.stringify(err),
+    };
+  });
+};
