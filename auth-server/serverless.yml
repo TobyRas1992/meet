@@ -19,5 +19,5 @@ functions:
     handler: handler.getAuthURL
     events:
       - http:
-        path: api/get-auth-url
-        method: get
+          path: api/get-auth-url
+          method: get
