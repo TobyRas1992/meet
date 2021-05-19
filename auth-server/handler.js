@@ -1,5 +1,4 @@
 const { google } = require("googleapis");
-// const { resultingClientExists } = require("workbox-core/_private"); //QUESTION: What does this do?
 const OAuth2 = google.auth.OAuth2; // is a authentication and authorization protocol
 const calendar = google.calendar("v3");
 const SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
@@ -63,7 +62,7 @@ module.exports.getAccessToken = async (event) => {
     return {
       statusCode: 200,
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify(token),
     };
@@ -83,9 +82,7 @@ module.exports.getCalendarEvents = async (event) => {
     client_secret,
     redirect_uris[0]
   );
-
 const access_token = decodeURIComponent(`${event.pathParameters.access_token}`); //gets token from URI
-
 oAuth2Client.setCredentials({access_token}); //sets access token as credentials
 
 return new Promise ((resolve, reject) =>{
@@ -109,7 +106,7 @@ return new Promise ((resolve, reject) =>{
   return {
     statusCode: 200,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify({events: results.data.items}),
   };
