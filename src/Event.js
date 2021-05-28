@@ -15,8 +15,6 @@ class Event extends Component {
 
   render() {
     const {details} = this.state;
-    /* let linkTxt = "See details on Google Calender";
-    let googleLink = linkTxt.link("https://blahblahblah"); //John: I've left this as mock data. */
 
     return <div className= "eventDiv">
       <h3 className=".name">name</h3> {/* Fix: show event object name */}
