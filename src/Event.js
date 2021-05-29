@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 
 class Event extends Component {
   state = {
-    details: false
+    details: false,
+    event: this.props.event
 }
 
   showDetails(e) {
@@ -15,10 +16,12 @@ class Event extends Component {
 
   render() {
     const {details} = this.state;
+    const {event} = this.state;
 
-    return <div className= "eventDiv">
-      <h3 className=".name">name</h3> {/* Fix: show event object name */}
-      <div className="basicDetails">basic details</div>
+    return <div className= "event">
+      <div></div>
+      <h3 className="name"></h3> {/* Fix: show event object name */}
+      <div className="overview"></div>
       {details ? <div className="infoContainer">
         <h4>About event:</h4>
         <a className="eventGoogleLink" href="https://blahblahblahblah">see details on Google Calendar</a>

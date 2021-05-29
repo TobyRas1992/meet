@@ -1,16 +1,24 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import Event from '../Event';
 
 describe('<Event/> component', ()=>{
 let  EventWrapper;
 
   beforeAll(()=> {
-    EventWrapper = shallow(<Event/>);
+    EventWrapper = shallow(<Event event={event}/>);
   });
 
-  test ('render event name', () => {
+  test ('renders event element', () => {
+    expect(EventWrapper.find('.event')).toHaveLength(1);
+  });
+
+  test('renders event title', () => {
     expect(EventWrapper.find('.name')).toHaveLength(1);
+  });
+
+  test('renders event overview', () => {
+    expect(EventWrapper.find('.overview')).toHaveLength(1);
   });
 
 /* test ('render show details button', () => {
