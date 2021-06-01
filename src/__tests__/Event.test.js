@@ -22,15 +22,23 @@ let  EventWrapper;
     expect(EventWrapper.find('.name').text()).toBe('Learn JavaScript');
   });
 
-  test('renders event overview', () => {
+  test('renders event overview div', () => {
     expect(EventWrapper.find('.overview')).toHaveLength(1);
   });
 
-test ('show extra event details on button click', () => {
-EventWrapper.setState({details: false});
-  expect(EventWrapper.find('.showDetailsButton')).toHaveLength(1);
-});
+  test("doesn't render details when first loaded", () => {
+    expect(EventWrapper.state("details")).toBe(false);
+  });
+  test("click on show details button to expand event details", () => {
+    EventWrapper.setState({details: false});
+    EventWrapper.find("showDetailsButton").simulate("click");
+    expect(EventWrapper.state('details')).toBe(true);
+  });
 
+/* test ('render show details button', () => {
+  expect(EventWrapper.find()).toHaveLength(1);
+});
+ */
 /* test('change state when show details button is clicked', () => {
 
   EventWrapper.setState({
