@@ -19,7 +19,6 @@ class App extends Component {
         <h1>Meet App</h1>
         <p>Choose your nearest city</p>
         <CitySearch/>
-        <p>Number of Events:</p>
         <NumberOfEvents/>
         <EventList events = {events}/>
       </div>
