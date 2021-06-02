@@ -16,17 +16,16 @@ if (value < 0 || value > 32) {
   this.setState({
     errorText: "Select a number between 1 and 32"
   })
-} else if (value.isNaN() === true) { //John: redundant to write it like this?
+} else if (isNaN(value)) { //John: redundant to write it like this?
   this.setState({
     warningText: "Input field only accepts numbers"
-  }) 
+  }); 
 } else {
   this.setState({
     errorText: "",
     warningText: ""
-  })
+  });
 }
-this.props.updateEvents(null,value); // I have to be certain what this does. 
 }
 
   render(){
