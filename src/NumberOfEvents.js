@@ -16,7 +16,7 @@ if (value < 0 || value > 32) {
   this.setState({
     errorText: "Select a number between 1 and 32"
   })
-} else if (isNaN(value)) { //John: redundant to write it like this?
+} else if (isNaN(value)) {
   this.setState({
     warningText: "Input field only accepts numbers"
   }); 
@@ -36,8 +36,10 @@ if (value < 0 || value > 32) {
       </div>
       <label className="input-message">Number of Events:</label>
       <input 
-        type="text" 
+        type="number"
+        name="EventNumber"
         className="numberInput"
+        placeholder="Enter Number of Events"
         value={this.state.numberOfEvents}
         onChange={this.handleNumberChange}
       />

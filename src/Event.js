@@ -5,29 +5,31 @@ class Event extends Component {
     details: false
 }
 
-  showDetails(e) {
+changeDetailsState = () => {
+  if (this.state.details === true) {
+    this.setState({details: false});
+  } else {
     this.setState({details: true});
   }
-
-  hideDetails(e) {
-    this.setState({details: false});
-  }
+};
 
   render() {
-    const {details} = this.state;
     const {event} = this.props;
 
     return <div className= "event">
-      <h3 className="name">{event.summary}</h3> {/* Fix: show event object name */}
-      <div className="overview"></div>
-      { details
-        ? <div className="infoContainer">
-            <h4>About event:</h4>
-            <a className="eventGoogleLink" href="https://blahblahblahblah">see details on Google Calendar</a>
-            <div className='xtraEventInfo'>Large info box</div>
-            <button className=".hideDetailsButton" onClick={() => this.hideDetails()}>Hide Details</button>
-          </div>
-        : <button className=".showDetailsButton" onClick={() => this.showDetails()}>Show Details</button>
+      <h1 className="name">{event.summary}</h1>
+      <p>{event.start.dateTime}</p>
+      <p className="event-location">{event.location}</p>
+      { this.state.details &&
+        (<div className="event-details">
+            <h2>About event:</h2>
+            <a className="eventGoogleLink" href={event.htmlLink}>See details on Google Calendar</a>
+            <p>{event.description}</p>
+        </div>)
+      }
+      {!this.state.details
+      ? <button className=".showDetailsButton" onClick={() => this.changeDetailsState()}>Show Details</button>
+      : <button className=".hideDetailsButton" onClick={() => this.changeDetailsState()}>Hide Details</button>
       }
     </div>; 
   }
