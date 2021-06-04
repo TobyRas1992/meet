@@ -31,4 +31,9 @@ let  EventWrapper;
     EventWrapper.find(".showDetailsButton").simulate("click");
     expect(EventWrapper.state('details')).toBe(true);
   });
+  test("click on hide details button to hide event details", () => { //John: why doesn't this return correct node?
+    EventWrapper.setState({details: true});
+    EventWrapper.find(".hideDetailsButton").simulate("click");
+    expect(EventWrapper.state('details')).toBe(false);
+  });
 });

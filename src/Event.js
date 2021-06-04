@@ -28,8 +28,8 @@ changeDetailsState = () => {
         </div>)
       }
       {!this.state.details
-      ? <button className=".showDetailsButton" onClick={() => this.changeDetailsState()}>Show Details</button>
-      : <button className=".hideDetailsButton" onClick={() => this.changeDetailsState()}>Hide Details</button>
+      ? <button className="showDetailsButton" onClick={() => this.changeDetailsState()}>Show Details</button>
+      : <button className="hideDetailsButton" onClick={() => this.changeDetailsState()}>Hide Details</button>
       }
     </div>; 
   }
