@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import EventList from './EventList';
+import CitySearch from './CitySearch';
+import NumberOfEvents from './NumberOfEvents';
+import mockData from './mock-data';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    events: []
+  }
+  componentDidMount(){
+    this.setState({events: mockData});
+  }
+  render() {
+    const {events} = this.state;
+    return (
+      <div className="App">
+        <h1>Meet App</h1>
+        <p>Choose your nearest city</p>
+        <CitySearch/>
+        <NumberOfEvents/>
+        <EventList events = {events}/>
+      </div>
+    );
+  }
 }
 
 export default App;
