@@ -65,4 +65,20 @@ describe('<CitySearch /> component', () => {
     CitySearchWrapper.find('.suggestions li').at(0).simulate('click'); //simulates click action on one of the suggestions in my suggestions list. 
     expect(CitySearchWrapper.state('query')).toBe(suggestions[0]);
   });
+
+  test('selecting CitySearch input reveals the suggestion list', () => {
+    CitySearchWrapper.find('.city').simulate('focus'); // simulates focus on city.
+    expect(CitySearchWrapper.state('.showSuggestions')).toBe(true); //showSuggestions state expected to be true
+    expect(CitySearchWrapper.find('.suggestions')).prop('style').not.toEqual({ display: 'none'});
+  })
+  
+  test('selecting a suggestion should hide the suggestions list', () => {
+    CitySearchWrapper.setState({
+      query: 'Berlin',
+      showSuggestions: undefined
+    });
+    CitySearchWrapper.find('.suggestions li').at(0).simulate('click'); //simulates click on first item on suggestions list
+    expect(CitySearchWrapper.state('showSuggestions')).toBe(false); //checks if state changes after click
+    expect(CitySearchWrapper.find('.suggestions').prop('style')).toEqual({ display: 'none'}); // checks if suggestions list is hidden
+  });
 }); 
