@@ -10,7 +10,7 @@ describe('<CitySearch /> component', () => {
 
   beforeAll(()=> {
     locations = extractLocations(mockData); //extracts JSON objects from google mockData file and puts it into a superset of locations. 
-    CitySearchWrapper = shallow(<CitySearch locations={locations}/>); //creates shallow API wrapper + passes superset locations to CitySearch as a prop like normal props from main page to components. 
+    CitySearchWrapper = shallow(<CitySearch locations={locations} updateEvents={() => {}}/>); //creates shallow API wrapper + passes superset locations to CitySearch as a prop like normal props from main page to components. 
   });
 
   test('render text input', () => { //looks for .city input field
@@ -62,7 +62,7 @@ describe('<CitySearch /> component', () => {
   test('selecting a suggestion should change query state', () =>{
     CitySearchWrapper.setState({query: 'Berlin'});
     const suggestions = CitySearchWrapper.state('suggestions');
-    CitySearchWrapper.find('.suggestions li').at(0).simulate('click');
+    CitySearchWrapper.find('.suggestions li').at(0).simulate('click'); //simulates click action on one of the suggestions in my suggestions list. 
     expect(CitySearchWrapper.state('query')).toBe(suggestions[0]);
   });
 }); 

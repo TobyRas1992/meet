@@ -17,17 +17,19 @@ class CitySearch extends Component {
     this.setState({
       query: suggestion
     });
+    this.props.updateEvents(suggestion); // sets events state with events with same location as selected city. 
   }
 
   render() {
     return (
       <div className="CitySearch">
         <input type="text"className="city" value={this.state.query} onChange={this.handleInputChanged} /> {/* all textObjects have a value property */}
-        <ul className="suggestions"> {/* list of suggestions */}
-          {this.state.suggestions.map((suggestion) =>(
-            <li key={suggestion} onClick={() => this.handleItemClicked(suggestion)}>{suggestion}</li>))} {/* uses key to distinguish each item */}
+        <ul className="suggestions">
+          {this.state.suggestions.map((suggestion) => (
+            <li key={suggestion}
+            onClick={() => this.handleItemClicked(suggestion)}>{suggestion}</li>))} 
             {/* onClick holds a reference to handleItemCLicked(), we must wrap it in an outer function to pass in a named argument */}
-          <li key='all'>
+          <li onClick={() => this.handleItemClicked('all')}>
             <b>See all cities</b>
           </li>
         </ul>
