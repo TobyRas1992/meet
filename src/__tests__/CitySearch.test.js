@@ -68,8 +68,8 @@ describe('<CitySearch /> component', () => {
 
   test('selecting CitySearch input reveals the suggestion list', () => {
     CitySearchWrapper.find('.city').simulate('focus'); // simulates focus on city.
-    expect(CitySearchWrapper.state('.showSuggestions')).toBe(true); //showSuggestions state expected to be true
-    expect(CitySearchWrapper.find('.suggestions')).prop('style').not.toEqual({ display: 'none'});
+    expect(CitySearchWrapper.state('showSuggestions')).toBe(true); //showSuggestions state expected to be true
+    expect(CitySearchWrapper.find('.suggestions').prop('style')).not.toEqual({ display: 'none'});
   })
   
   test('selecting a suggestion should hide the suggestions list', () => {
