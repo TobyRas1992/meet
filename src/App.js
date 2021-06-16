@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import EventList from './EventList';
 import CitySearch from './CitySearch';
@@ -9,15 +9,16 @@ import { extractLocations, getEvents } from './api';
 class App extends Component {
   state = {
     events: [],
-    locations: []
+    locations: [],
+    numberOfEvents: 32
   }
 
   updateEvents = (location) => { // method that changes component's 'events' state. 
     getEvents().then((events) => {
-      const locationEvents = (location === 'all') 
-      ? events 
-      : events.filter((event) => event.location === location);
-      this.setState({events: locationEvents});
+      const locationEvents = (location === 'all')
+        ? events
+        : events.filter((event) => event.location === location);
+      this.setState({ events: locationEvents });
     });
   }
 
@@ -39,9 +40,9 @@ class App extends Component {
       <div className="App">
         <h1>Meet App</h1>
         <p>Choose your nearest city</p>
-        <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
-        <NumberOfEvents/>
-        <EventList events = {this.state.events}/>
+        <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
+        <NumberOfEvents />
+        <EventList events={this.state.events} />
       </div>
     );
   }
