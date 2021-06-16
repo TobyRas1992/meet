@@ -1,15 +1,15 @@
 import React from 'react';
-import {shallow} from 'enzyme';
-import {mockData} from '../mock-data';
+import { shallow } from 'enzyme';
+import { mockData } from '../mock-data';
 import NumberOfEvents from '../NumberOfEvents';
-import {extractLocations} from '../api';
+import { extractLocations } from '../api';
 
 describe('<NumberOfEvents /> component', () => {
-  let NumberOfEventsWrapper, locations; 
+  let NumberOfEventsWrapper, locations;
 
   beforeAll(() => {
     locations = extractLocations(mockData);
-    NumberOfEventsWrapper = shallow(<NumberOfEvents locations={locations}/> );
+    NumberOfEventsWrapper = shallow(<NumberOfEvents locations={locations} />);
   });
 
   test('render NumberOfEvents component', () => {
@@ -29,12 +29,8 @@ describe('<NumberOfEvents /> component', () => {
     expect(NumberOfEventsWrapper.find('.numberInput').prop('value')).toBe(numberOfEvents);
   });
   test('change state when text input changes', () => {
-    const eventObject = {target: {value: 10}};
+    const eventObject = { target: { value: 10 } };
     NumberOfEventsWrapper.find('.numberInput').simulate('change', eventObject);
     expect(NumberOfEventsWrapper.state('numberOfEvents')).toBe(10);
   });
-/*   test('', () => {});
-  test('', () => {});
-  test('', () => {});
-  test('', () => {}); */
 });
