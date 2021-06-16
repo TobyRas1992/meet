@@ -9,7 +9,8 @@ import { extractLocations, getEvents } from './api';
 class App extends Component {
   state = {
     events: [],
-    locations: []
+    locations: [],
+    numberOfEvents: 32
   }
 
   updateEvents = (location) => { // method that changes component's 'events' state. 

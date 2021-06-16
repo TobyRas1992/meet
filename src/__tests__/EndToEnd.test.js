@@ -54,7 +54,11 @@ describe('filter events by city', () => {
   jest.setTimeout(30000);
 
   beforeAll(async () => {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({
+      headless: false,
+      slowMo: 250,
+      ignoreDefaultArgs: ["--disable-extensions"]
+    });
     page = await browser.newPage();
     await page.goto('http://localhost:3000/');
     await page.waitForSelector('.event');
@@ -66,12 +70,13 @@ describe('filter events by city', () => {
 
   // Scenario 1
   test("when a user hasn't searched for a city, show upcoming events from all cities", async () => {
-    const renderedEvents = await page.$('.event');
-    expect(renderedEvents).toBeDefined(); //John: is there a better way to actually check for number here? 
+    const renderedEvents = await page.$$('.event');
+    expect(renderedEvents.length).toEqual(2); //John: is there a better way to actually check for number here? 
   });
 
   test("User should see a list of suggestions when they search for a city", async () => {
-    await page.keyboard.type(".city", "London");
+    await page.click(".city");
+    await page.keyboard.type("London");
     const suggestions = await page.$(".suggestions");
     expect(suggestions).toBeDefined();
   });
@@ -79,7 +84,8 @@ describe('filter events by city', () => {
   test("User can select a city from the suggested list", async () => {
     const suggestions = await page.$(".suggestions");
     expect(suggestions).toBeDefined();
-    await page.click(".suggestions li"); // doesn't work for some reason. 
-    expect(".event").toBeDefined();
+    await page.click(".suggestions li"); // doesn't work for some reason.
+    const event = await page.$('event');
+    expect(event).toBeDefined();
   });
 });
