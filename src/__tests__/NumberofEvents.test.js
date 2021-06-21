@@ -9,7 +9,7 @@ describe('<NumberOfEvents /> component', () => {
 
   beforeAll(() => {
     locations = extractLocations(mockData);
-    NumberOfEventsWrapper = shallow(<NumberOfEvents locations={locations} />);
+    NumberOfEventsWrapper = shallow(<NumberOfEvents locations={locations} updateNumberOfEvents={() => null} />);
   });
 
   test('render NumberOfEvents component', () => {
