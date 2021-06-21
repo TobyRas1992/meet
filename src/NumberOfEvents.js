@@ -37,7 +37,7 @@ class NumberOfEvents extends Component {
       </div>
       <label className="input-message">Number of Events:</label>
       <input
-        type="number"
+        type="number" // change this to text to render WarningAlert 
         name="EventNumber"
         className="numberInput"
         placeholder="Enter Number of Events"
