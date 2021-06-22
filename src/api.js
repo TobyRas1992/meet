@@ -10,18 +10,18 @@ export const extractLocations = (events) => { //extracts event location from an 
 
 const checkToken = async (accessToken) => {
   const result = await fetch(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`)
-  .then((res) => res.json())
-  .catch((error) => error.json());
-  return result; 
+    .then((res) => res.json())
+    .catch((error) => error.json());
+  return result;
 };
 
 const getToken = async (code) => { //fetches new token for user. 
   const encodeCode = encodeURIComponent(code); // encodes your code.
-  const {access_token} = await fetch('https://qg6namd6jb.execute-api.eu-central-1.amazonaws.com/dev/api/token' + '/' + encodeCode)
-  .then((res) => {
-    return res.json();
-  })
-  .catch((error) => error);
+  const { access_token } = await fetch('https://qg6namd6jb.execute-api.eu-central-1.amazonaws.com/dev/api/token' + '/' + encodeCode)
+    .then((res) => {
+      return res.json();
+    })
+    .catch((error) => error);
 
   access_token && localStorage.setItem('access_token', access_token);
 
@@ -30,10 +30,10 @@ const getToken = async (code) => { //fetches new token for user.
 
 const removeQuery = () => { // removes code from URL once I'm finished with it. Function checks whether there's a path, then builds the URL with the current path (or builds the URL without a path using window.history.pushState()).
   if (window.history.pushState && window.location.pathname) {
-    var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname; 
-    window.history.pushState('','', newurl);
+    var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname;
+    window.history.pushState('', '', newurl);
   } else {
-    newurl= window.location.protocol + '//' + window.location.host;
+    newurl = window.location.protocol + '//' + window.location.host;
     window.history.pushState('', '', newurl);
   }
 }
@@ -41,8 +41,15 @@ const removeQuery = () => { // removes code from URL once I'm finished with it. 
 export const getEvents = async () => {
   NProgress.start(); // displays progress bar at the top of page. 
 
-  if(window.location.href.startsWith('http://localhost')) { //ensures we return mockData (and not real api) if using localhost. 
+  if (window.location.href.startsWith('http://localhost')) { //ensures we return mockData (and not real api) if using localhost. 
     return mockData;
+  }
+
+  //loads, parses and returns stored events list if user is offline. 
+  if (!navigator.onLine) {
+    const events = localStorage.getItem("lastEvents");
+    NProgress.done();
+    return events ? JSON.parse(events).events : [];;
   }
 
   const token = await getAccessToken(); // check for access token. 
@@ -51,14 +58,14 @@ export const getEvents = async () => {
     removeQuery();
     const url = 'https://qg6namd6jb.execute-api.eu-central-1.amazonaws.com/dev/api/get-events' + '/' + token;
     const result = await axios.get(url);
-    if(result.data) {
+    if (result.data) {
       var locations = extractLocations(result.data.events);
       localStorage.setItem('lastEvents', JSON.stringify(result.data));
       localStorage.setItem('locations', JSON.stringify(locations));
     }
     NProgress.done();
     return result.data.events;
-  }  
+  }
 };
 
 export const getAccessToken = async () => {
