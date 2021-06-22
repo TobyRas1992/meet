@@ -45,7 +45,7 @@ export const getEvents = async () => {
     return mockData;
   }
 
-  // new code (4.8) that loads, parses and returns stored events list if user is offline. 
+  //loads, parses and returns stored events list if user is offline. 
   if (!navigator.onLine) {
     const events = localStorage.getItem("lastEvents");
     NProgress.done();
