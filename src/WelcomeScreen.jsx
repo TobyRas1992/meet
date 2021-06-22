@@ -19,8 +19,10 @@ function WelcomeScreen(props) {
             </button>
           </div>
         </div>
-        <a href="https://tobyras1992.github.io/meet/privacy.html" rel="nofollow noopener">Privacy policy</a>
+        <a href="https://TobyRas1992.github.io/meet/privacy.html" rel="nofollow noopener">Privacy policy</a>
       </div>
     )
     : null
 }
+
+export default WelcomeScreen;
