@@ -13,6 +13,17 @@ class App extends Component {
     currentCity: "all",
   }
 
+  // 4.9 function that counts how many events each city has
+  getData = () => {
+    const { locations, events } = this.state;
+    const data = locations.map((location) => {
+      const number = events.filter((event) => event.location === location).length; // finds number of events pr city.  
+      const city = location.split(', ').shift(); // gets city by shortening the location and removing unnecessary info, leaving only city name. 
+      return { city, number };
+    });
+    return data;
+  }
+
   updateEvents = (location, numberOfEvents) => { // method that changes component's 'events' state. 
     getEvents().then((events) => {
       const locationEvents = (location === 'all')
