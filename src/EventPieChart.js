@@ -2,22 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 
 export default function EventPieChart(props) {
-  const { events } = props
-  const [data, setData] = useState([]);
-  const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS']
+  const { events } = props;
+  const [data, setData] = useState([]); // allows us to add state to a function component.
+  const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS']; //values used for checking checking the events summaries. 
   const COLORS = ['#f2a365', '#BBE1FA', '#903749', '#219897', '#616f39'];
 
-  const getData = () => {
+  const getDataForPieChart = () => {
     let data = genres.map(genre => {
-      const value = events.filter(event => event.summary.replace(',', '').replace('.', '').split(' ').includes(genre)).length
-      return { name: genre, value }
+      const value = events.filter(event => event.summary.replace(',', '').replace('.', '').split(' ').includes(genre)).length; // replace() used to change commas and full stops into nothing. split() each summary by space to turn summary into array of words. includes() checks if the summary includes the genre. returns true or false. then use length to count number. 
+      return { name: genre, value };
     })
-    data = data.filter(data => data.value)
-    return data
+    data = data.filter(data => data.value); //removes duplicates
+    return data;
   }
 
-  useEffect(() => {
-    setData(() => getData())
+  useEffect(() => { //listens for changes to events prop (from App.js). 
+    setData(() => getDataForPieChart())
   }, [events]);
 
   return (

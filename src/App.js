@@ -15,35 +15,37 @@ class App extends Component {
     currentCity: "all",
   }
 
-  // 4.9 function that counts how many events each city has
-  getData = () => {
-    const { locations, events } = this.state;
-    const data = locations.map((location) => {
-      const number = events.filter((event) => event.location === location).length; // finds number of events pr city.  
-      const city = location.split(', ').shift(); // gets city by shortening the location and removing unnecessary info, leaving only city name. 
-      return { city, number };
-    });
-    return data;
-  }
 
-  updateEvents = (location, numberOfEvents) => { // method that changes component's 'events' state. 
+  updateEvents = (location, numberOfEvents) => { // method that changes component's 'events' + 'currentCity' state. 
     getEvents().then((events) => {
-      const locationEvents = (location === 'all')
-        ? events.slice(0, numberOfEvents)
-        : events.filter((event) => event.location === location);
-      if (this.mounted) {
+      const locationEvents = (location === 'all') //checks if value is 'all' before update
+        ? events.slice(0, numberOfEvents) // John: how does this line work? would it be ok to just have 'events' considering this is already written on line 26?
+        : events.filter((event) => event.location === location); // filters events matching location
+      if (this.mounted) { // checks if mounted
         this.setState({
-          events: locationEvents.slice(0, numberOfEvents),
+          events: locationEvents.slice(0, numberOfEvents), // slice returns a portion of new array (locationsEvents). 
           currentCity: location,
         });
       }
     });
   }
 
-  updateNumberOfEvents(eventNumber) {
+  updateNumberOfEvents(eventNumber) { // updates 'numberOfEvents' state --> then calls updateEvents with currentCity and eventNumber
     this.setState({ numberOfEvents: eventNumber });
     const { currentCity } = this.state;
     this.updateEvents(currentCity, eventNumber);
+  }
+
+
+  // function that counts how many events each city has for scatter chart component. 
+  getDataForScatterChart = () => {
+    const { locations, events } = this.state;
+    const data = locations.map((location) => {
+      const number = events.filter((event) => event.location === location).length; // finds how many events will take place in given city.
+      const city = location.split(', ').shift(); // gets city name by shortening the location and removing unnecessary info, leaving only city name. 
+      return { city, number };
+    });
+    return data;
   }
 
   componentDidMount() { // makes API call and saves initial data to state. 
@@ -79,7 +81,7 @@ class App extends Component {
               <XAxis type="category" dataKey="city" name="city" />
               <YAxis type="number" dataKey="number" name="number of events" allowDecimals={false} />
               <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-              <Scatter data={this.getData()} fill="#8884d8" />
+              <Scatter data={this.getDataForScatterChart()} fill="#8884d8" />
             </ScatterChart>
           </ResponsiveContainer>
         </div>
