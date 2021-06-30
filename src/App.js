@@ -80,7 +80,13 @@ class App extends Component {
               <CartesianGrid />
               <XAxis type="category" dataKey="city" name="city" />
               <YAxis type="number" dataKey="number" name="number of events" allowDecimals={false} />
-              <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+              <Tooltip cursor={{ strokeDasharray: '3 3' }} labelFormatter={ /* here I am trying to set the label explicitly */
+                (value, name, props) => {
+                  console.log('label formatter being called');
+                  console.log({ value, name, props });
+                  return "Event"
+                }}
+              />
               <Scatter data={this.getDataForScatterChart()} fill="#8884d8" />
             </ScatterChart>
           </ResponsiveContainer>
