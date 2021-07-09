@@ -4,7 +4,7 @@ For this build, I have followed a test-driven development technique.
 
 
 ## Demo
-
+![Meet App Demo](public/meet-demo.gif)
 ## Tech/frameworks used
 **Built with**
 - [React.js](https://reactjs.org/)
